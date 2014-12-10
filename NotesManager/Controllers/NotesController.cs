@@ -94,6 +94,7 @@ namespace NotesManager.Controllers
         {
             if (note.EventDate.Date < DateTime.Today.Date)
                 note.EventDate = new DateTime(1901, 1, 1);
+            note.NeedToNotify = note.EventDate.Date >= DateTime.Today.Date;
             UsersNotesContext nc = new UsersNotesContext();
             nc.Entry(note).State = EntityState.Modified;
             nc.SaveChanges();
