@@ -1,0 +1,46 @@
+﻿@model NotesManager.Models.RegisterModel
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Регистрация</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <table>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.Nickname)</td>
+            <td>@Html.EditorFor(model => model.Nickname)</td>
+            <td>@Html.ValidationMessageFor(model => model.Nickname)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.Password)</td>
+            <td>@Html.EditorFor(model => model.Password)</td>
+            <td>@Html.ValidationMessageFor(model => model.Password)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.ConfirmPassword)</td>
+            <td>@Html.EditorFor(model => model.ConfirmPassword)</td>
+            <td>@Html.ValidationMessageFor(model => model.ConfirmPassword)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.Email)</td>
+            <td>@Html.EditorFor(model => model.Email)</td>
+            <td>@Html.ValidationMessageFor(model => model.Email)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.Notify)</td>
+            <td>@Html.CheckBoxFor(model => model.Notify, new { @checked = "checked" })</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Зарегистрироваться" class="btn btn-default" /></td>
+            <td></td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,60 @@
+﻿@model NotesManager.Models.User
+@{
+    ViewBag.Title = Model.Nickname;
+}
+
+<h2>Профиль пользователя @Model.Nickname</h2>
+
+@switch ((int)ViewBag.LinkType)
+{
+    case 0:
+        <div>Вы можете <a href="/Social/SendRequest/@Model.Id">добавить этого пользователя в друзья</a></div>
+        break;
+    case 1:
+        <span>Этот пользователь пока не принял Вашу заявку</span>
+        <div>
+            <a href="/Social/CancelRequest/@Model.Id">Отозвать заявку</a>
+        </div>
+        break;
+    case 2:
+        <span>Этот пользователь хочет добавить Вас в друзья</span>
+        <div>
+            <a href="/Social/ConfirmRequest/@Model.Id">Принять заявку</a>
+            <a href="/Social/RejectRequest/@Model.Id" style="padding-left: 8px">Отклонить заявку</a>
+        </div>
+        break;
+    case 3:
+        <span>Этот пользователь находится в Вашем списке друзей</span>
+        <div>
+            <a href="/Social/RemoveFromFriends/@Model.Id">Удалить из друзей</a>
+        </div>
+        break;
+}
+
+<div class="col-md-6">
+    <h3>Заметки</h3>
+
+    @if (ViewBag.NotesList.Count == 0)
+    {
+        <div>
+            У этого пользователя нет доступных для Вас заметок
+        </div>
+    }
+    else
+    {
+        foreach (var n in ViewBag.NotesList)
+        {
+            <div class="note" style="border-radius: 10px; background-color: #ffcc30">@n.Content</div>
+
+            <div style="text-align: right">
+                @if (n.EventDate != new DateTime(1, 1, 1))
+                {
+                    @n.EventDate.Date.ToString("dd.MM.yyyy")
+                }
+            </div>
+            <p></p>
+        }
+    }
+
+</div>
+

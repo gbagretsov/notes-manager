@@ -1,0 +1,35 @@
+﻿@model NotesManager.Models.Note
+
+@{
+    ViewBag.Title = "Создать заметку";
+}
+
+<h2>Создать заметку</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true);
+
+    <table>
+        <tr>
+            <td valign="top" align="right">@Html.LabelFor(model => model.Content)</td>
+            <td>@Html.TextAreaFor(model => model.Content, new { @cols = "60", @rows = "10" })</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.EventDate)</td>
+            <td><input type="date" name="EventDate"/></td>
+        </tr>
+        <tr>
+            <td valign="top" align="right">@Html.LabelFor(model => model.Access)</td>
+            <td>@Html.RadioButton("Access", "Public")<span>Все зарегистрированные пользователи</span><br />
+                @Html.RadioButton("Access", "Friends", true)<span>Я и мои друзья</span> <br />
+                @Html.RadioButton("Access", "Private")<span>Только я</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">@Html.ActionLink("Вернуться", "Personal", "Notes")</td>
+            <td><input type="submit" value="Сохранить" class="btn btn-default" /></td>
+        </tr>
+    </table>
+}

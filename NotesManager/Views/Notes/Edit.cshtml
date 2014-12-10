@@ -1,0 +1,42 @@
+﻿@using NotesManager.Models
+@model Note
+
+@{
+    ViewBag.Title = "Редактировать заметку";
+}
+
+<h2>Редактирование</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()  
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CreatorId)
+
+    <table>
+        <tr>
+            <td valign="top" align="right">@Html.LabelFor(model => model.Content)</td>
+            <td><textarea cols="60" rows="10" name="Content">@Model.Content</textarea></td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.EventDate)</td>
+            <td><input type="date" 
+                       value="@Model.EventDate.Year-@Model.EventDate.Month.ToString("00")-@Model.EventDate.Day.ToString("00")" 
+                       name="EventDate" /></td>
+        </tr>
+        <tr>
+            <td valign="top" align="right">@Html.LabelFor(model => model.Access)</td>
+            <td>
+            @Html.RadioButton("Access", "Public", Model.Access == "Public")<span>Все зарегистрированные пользователи</span><br />
+            @Html.RadioButton("Access", "Friends", Model.Access == "Friends")<span>Я и мои друзья</span><br />
+            @Html.RadioButton("Access", "Private", Model.Access == "Private")<span>Только я</span>
+        </td>
+        </tr>
+        <tr>
+            <td align="right">@Html.ActionLink("Вернуться", "Personal", "Notes")</td>
+            <td><input type="submit" value="Сохранить" class="btn btn-default" />
+                <a style="padding-left: 3px" href="/Notes/Delete/@Model.Id">Удалить</a></td>
+        </tr>
+    </table>
+}

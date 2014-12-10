@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<h2>Добро пожаловать, <span style="font-weight: bold">@User.Identity.Name!</span></h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Ваши заметки</h3>
+        
+        @if (ViewBag.NotesList.Count == 0)
+        {
+            <div>
+                У Вас пока нет заметок
+            </div>
+            <div>
+            @Html.ActionLink("Создать заметку", "Create", "Notes")
+            </div>
+        }
+        else
+        {
+            <div>
+                @Html.ActionLink("Создать заметку", "Create", "Notes")
+            </div>
+            foreach (var n in ViewBag.NotesList)
+            {
+                <div class="note" style="border-radius: 10px; background-color: #ffcc30">@n.Content</div>
+
+                <div style="text-align: right">
+                    @if (n.EventDate != new DateTime(1, 1, 1))
+                    {
+                        @n.EventDate.Date.ToString("dd.MM.yyyy")
+                    }
+                    <a href="/Notes/Edit/@n.Id">Изменить</a>
+                </div>
+                <p></p>   
+            }
+        }
+
+    </div>
+
+    <div class="col-md-6">
+        <h3>Ваши друзья</h3>
+        @if (ViewBag.IncomingList.Count + ViewBag.FriendsList.Count + ViewBag.RequestsList.Count == 0)
+        {
+            <div>
+                Ваш список друзей пока пуст
+            </div>
+            <div>
+                @Html.ActionLink("Найти пользователя", "FindUser", "Social")
+            </div>
+        }
+        else
+        {
+            <div>
+                @Html.ActionLink("Найти пользователя", "FindUser", "Social")
+            </div>
+
+            foreach (var f in ViewBag.IncomingList)
+            {
+                <div>
+                    <a style="font-weight: bold; font-size: x-large" href="/Social/UserProfile/@f.Id">@f.Nickname</a>
+                    <a href="/Social/ConfirmRequest/@f.Id">Добавить</a>
+                    <a href="/Social/RejectRequest/@f.Id">Отклонить</a>
+                </div>
+            }
+
+            foreach (var f in ViewBag.FriendsList)
+            {
+                <div>
+                    <a style="font-weight: bold; font-size: x-large" href="/Social/UserProfile/@f.Id">@f.Nickname</a>
+                </div>
+            }
+
+            foreach (var f in ViewBag.RequestsList)
+            {
+                <div>
+                    <a style="font-weight: bold; font-size: x-large" href="/Social/UserProfile/@f.Id">@f.Nickname</a>
+                    <a href="/Social/CancelRequest/@f.Id">Отменить заявку</a>
+                </div>
+            }
+            
+        }
+    </div>
+
+</div>

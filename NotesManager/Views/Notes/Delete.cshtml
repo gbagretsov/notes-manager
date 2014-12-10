@@ -1,0 +1,17 @@
+﻿@model NotesManager.Models.Note
+
+@{
+    ViewBag.Title = "Удалить";
+}
+
+<!DOCTYPE html>
+
+<h3>Вы действительно хотите удалить эту заметку?</h3>
+<textarea cols="60" rows="10" name="Content" readonly>@Model.Content</textarea>
+    
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p></p>
+    <input type="submit" value="Удалить" class="btn btn-default" />
+    <a style="padding-left: 10px" href="/Notes/Edit/@Model.Id">Назад</a>
+}

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Поиск пользователя";
+}
+
+<h2>Поиск</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false)
+
+    <table>
+        <tr>
+            <td align="right">Введите имя пользователя</td>
+            <td><input type="text" id="userNickName" name="userNickName" /></td>
+        </tr>
+        <tr>
+            <td align="right">@Html.ActionLink("Вернуться", "Personal", "Notes")</td>
+            <td><input type="submit" value="Найти" class="btn btn-default" /></td>
+        </tr>
+    </table>
+}

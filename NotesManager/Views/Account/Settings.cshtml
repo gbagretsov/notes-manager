@@ -1,0 +1,51 @@
+﻿@model NotesManager.Models.SettingsModel
+
+@{
+    ViewBag.Title = "Настройки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Настройки</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true);
+
+    <table>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.Nickname)</td>
+            <td>@Html.EditorFor(model => model.Nickname)</td>
+            <td>@Html.ValidationMessageFor(model => model.Nickname)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.OldPassword)</td>
+            <td>@Html.EditorFor(model => model.OldPassword)</td>
+            <td>@Html.ValidationMessageFor(model => model.OldPassword)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.Password)</td>
+            <td>@Html.EditorFor(model => model.Password)</td>
+            <td>@Html.ValidationMessageFor(model => model.Password)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.ConfirmPassword)</td>
+            <td>@Html.EditorFor(model => model.ConfirmPassword)</td>
+            <td>@Html.ValidationMessageFor(model => model.ConfirmPassword)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.Email)</td>
+            <td>@Html.EditorFor(model => model.Email)</td>
+            <td>@Html.ValidationMessageFor(model => model.Email)</td>
+        </tr>
+        <tr>
+            <td align="right">@Html.LabelFor(model => model.Notify)</td>
+            <td>@Html.CheckBoxFor(model => model.Notify, new { @checked = "checked" })</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="right">@Html.ActionLink("Вернуться", "Index", "Home")</td>
+            <td><input type="submit" value="Сохранить" class="btn btn-default" /></td>
+        </tr>        
+    </table>
+}
