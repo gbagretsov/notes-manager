@@ -130,6 +130,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UsersNotesContext.cs" />
     <Compile Include="Models\UsersRelation.cs" />
+    <Compile Include="Modules\DeliveryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
