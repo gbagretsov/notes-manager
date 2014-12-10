@@ -47,7 +47,7 @@
             <div class="note" style="border-radius: 10px; background-color: #ffcc30">@n.Content</div>
 
             <div style="text-align: right">
-                @if (n.EventDate != new DateTime(1, 1, 1))
+                @if (n.EventDate.Date >= DateTime.Today.Date)
                 {
                     @n.EventDate.Date.ToString("dd.MM.yyyy")
                 }

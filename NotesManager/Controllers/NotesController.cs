@@ -68,8 +68,8 @@ namespace NotesManager.Controllers
                     CreatorId = uc.Users.Where(u => u.Nickname == User.Identity.Name).Single().Id,
                     Content = model.Content,
                     Access = model.Access,
-                    EventDate = model.EventDate,
-                    NeedToNotify = model.EventDate != new DateTime(1, 1, 1)
+                    EventDate = model.EventDate.Date >= DateTime.Today.Date ? model.EventDate : new DateTime(1901, 1, 1),
+                    NeedToNotify = model.EventDate.Date >= DateTime.Today.Date
                 });
                 uc.SaveChanges();
                 return RedirectToAction("Personal", "Notes");

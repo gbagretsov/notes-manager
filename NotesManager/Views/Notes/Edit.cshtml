@@ -21,9 +21,18 @@
         </tr>
         <tr>
             <td align="right">@Html.LabelFor(model => model.EventDate)</td>
-            <td><input type="date" 
-                       value="@Model.EventDate.Year-@Model.EventDate.Month.ToString("00")-@Model.EventDate.Day.ToString("00")" 
-                       name="EventDate" /></td>
+            @if (Model.EventDate.Date >= DateTime.Today.Date)
+            {
+            <td>
+                <input type="date"
+                       value="@Model.EventDate.Year-@Model.EventDate.Month.ToString("00")-@Model.EventDate.Day.ToString("00")"
+                       name="EventDate" />
+            </td>
+            }
+            else
+            { 
+                <td><input type="date" name="EventDate" /></td>
+            }
         </tr>
         <tr>
             <td valign="top" align="right">@Html.LabelFor(model => model.Access)</td>
