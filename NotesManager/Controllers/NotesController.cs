@@ -92,6 +92,8 @@ namespace NotesManager.Controllers
         [HttpPost]
         public ActionResult Edit(Note note)
         {
+            if (note.EventDate.Date < DateTime.Today.Date)
+                note.EventDate = new DateTime(1901, 1, 1);
             UsersNotesContext nc = new UsersNotesContext();
             nc.Entry(note).State = EntityState.Modified;
             nc.SaveChanges();
