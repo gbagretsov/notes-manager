@@ -52,7 +52,10 @@ namespace NotesManager.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -78,12 +81,14 @@ namespace NotesManager.Controllers
                 return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
+            if (id == null || !User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             UsersNotesContext uc = new UsersNotesContext();
             int userId = uc.Users.Where(u => u.Nickname == User.Identity.Name).Single().Id;
             Note note = uc.Notes.Find(id);
-            if (note.CreatorId == userId)
+            if (note != null && note.CreatorId == userId)
                 return View(note);
             else
                 return RedirectToAction("Index", "Home");
@@ -102,16 +107,24 @@ namespace NotesManager.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
+            if (id == null || !User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             UsersNotesContext nc = new UsersNotesContext();
+            int userId = nc.Users.Where(u => u.Nickname == User.Identity.Name).Single().Id;
             Note note = nc.Notes.Find(id);
-            return View(note);
+            if (note != null && note.CreatorId == userId)
+                return View(note);
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
+            if (id == null)
+                return RedirectToAction("Index", "Home");
             UsersNotesContext uc = new UsersNotesContext();
             Note note = uc.Notes.Find(id);
             if (User.Identity.IsAuthenticated)

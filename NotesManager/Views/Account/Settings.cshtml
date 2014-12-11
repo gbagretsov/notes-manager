@@ -35,12 +35,19 @@
         </tr>
         <tr>
             <td align="right">@Html.LabelFor(model => model.Email)</td>
-            <td>@Html.EditorFor(model => model.Email)</td>
+            <td>@Html.EditorFor(model => model.Email, new { @value = Model.Email })</td>
             <td>@Html.ValidationMessageFor(model => model.Email)</td>
         </tr>
         <tr>
             <td align="right">@Html.LabelFor(model => model.Notify)</td>
-            <td>@Html.CheckBoxFor(model => model.Notify, new { @checked = "checked" })</td>
+            @if (Model.Notify)
+            { 
+                <td>@Html.CheckBoxFor(model => model.Notify, new { @checked = "checked" })</td>
+            }
+            else
+            {
+                <td>@Html.CheckBoxFor(model => model.Notify)</td>
+            }
             <td></td>
         </tr>
         <tr>

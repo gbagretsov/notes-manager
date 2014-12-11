@@ -59,7 +59,7 @@ namespace NotesManager.Models
         [RegularExpression("^.{6,}$",
             ErrorMessage = "Длина пароля должна быть не менее 6 символов")]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(Name = "Новый пароль")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

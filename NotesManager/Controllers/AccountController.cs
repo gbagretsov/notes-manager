@@ -84,7 +84,12 @@ namespace NotesManager.Controllers
         public ActionResult Settings()
         {
             if (User.Identity.IsAuthenticated)
-                return View();
+            {
+                UsersNotesContext uc = new UsersNotesContext();
+                User user = uc.Users.Where(u => u.Nickname == User.Identity.Name).Single();
+                SettingsModel sm = new SettingsModel { Email = user.Email, Notify = user.Notify };
+                return View(sm);
+            }
             else
                 return RedirectToAction("Index", "Home");
         }
@@ -146,7 +151,7 @@ namespace NotesManager.Controllers
             }
 
             if (error)
-                return View();  
+                return View(model);  
             else
                 return RedirectToAction("Index", "Home");
         }
